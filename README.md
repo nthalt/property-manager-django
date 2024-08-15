@@ -27,6 +27,29 @@
 
 5. **Make sure Postgresql database engine is installed and running.**
 
+6. **Create the database**
+
+   ```bash
+   CREATE DATABASE your_db_name
+   ```
+
+7. **Create the migration files**
+
+   ```bash
+   python manage.py makemigrations
+   ```
+
+8. **Apply the migrations to the database**
+
+   ```bash
+   python manage.py migrate
+   ```
+
+9. **Migrate data from scrapy database**
+   ```bash
+   python manage.py sync_scrapy
+   ```
+
 ### Important Notes:
 
 - Ensure that you have activated the virtual environment before running the `pip install -r requirements.txt` command. This ensures that all dependencies are installed within the virtual environment and do not affect the global Python environment.
