@@ -54,13 +54,29 @@ class Command(BaseCommand):
                 property.locations.add(location)
 
             # Parse and handle Amenities
+            # amenities_string = str(hotel[6])
+            # amenities_list = re.findall(r'"(.*?)"|(\w+)', amenities_string)
+            # amenities_list = [item[0] if item[0] else item[1]
+            #                   for item in amenities_list]
+
+            # for amenity_name in amenities_list:
+            #     amenity_name = amenity_name.strip()
+            #     if amenity_name:  # Check if amenity_name is not empty
+            #         amenity, _ = Amenity.objects.get_or_create(
+            #             name=amenity_name)
+            #         property.amenities.add(amenity)
+
+            # Parse and handle Amenities
             amenities_string = str(hotel[6])
-            amenities_list = re.findall(r'"(.*?)"|(\w+)', amenities_string)
-            amenities_list = [item[0] if item[0] else item[1]
-                              for item in amenities_list]
+            # Remove the curly braces at the start and end
+            amenities_string = amenities_string.strip('{}')
+            # Split the string by commas, but keep quoted phrases together
+            amenities_list = re.findall(r'"([^"]*)"|\S+', amenities_string)
+            # Remove any remaining quotes and strip whitespace
+            amenities_list = [amenity.strip('" ')
+                              for amenity in amenities_list]
 
             for amenity_name in amenities_list:
-                amenity_name = amenity_name.strip()
                 if amenity_name:  # Check if amenity_name is not empty
                     amenity, _ = Amenity.objects.get_or_create(
                         name=amenity_name)
