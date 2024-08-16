@@ -1,14 +1,21 @@
+"""
+fetches hotel information from database of 
+scrapy project and stores data in a new postgres database.
+"""
 import os
 import re
+import psycopg2
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from django.core.files import File
-from properties.models import Property, PropertyImage, Location, Amenity
 from dotenv import load_dotenv
-import psycopg2
+from properties.models import Property, PropertyImage, Location, Amenity
 
 
 class Command(BaseCommand):
+    """
+    fetches data from scrapy project database and stores in a new postgres database
+    """
     help = 'Migrate data from Scrapy database to Django database'
 
     def handle(self, *args, **options):
@@ -67,30 +74,26 @@ class Command(BaseCommand):
             #         property.amenities.add(amenity)
 
             # Parse and handle Amenities
-            amenities_string = str(hotel[6])
-            # Remove the curly braces at the start and end
-            amenities_string = amenities_string.strip('{}')
-            # Split the string by commas, but keep quoted phrases together
-            amenities_list = re.findall(r'"([^"]*)"|\S+', amenities_string)
-            # Remove any remaining quotes and strip whitespace
-            amenities_list = [amenity.strip('" ')
-                              for amenity in amenities_list]
-
-            for amenity_name in amenities_list:
+            amenities_string = (hotel[6])
+            # print(f"Raw amenities string: {amenities_string}")
+            for amenity_name in amenities_string:
                 if amenity_name:  # Check if amenity_name is not empty
                     amenity, _ = Amenity.objects.get_or_create(
                         name=amenity_name)
+                    # print(amenity)
                     property.amenities.add(amenity)
 
             # Find the original image
             original_image_name = os.path.basename(hotel[8])
+            # print(f"hotel [8] path: {hotel[8]}")
+            # print(f"base dir: {settings.BASE_DIR}")
             scrapy_image_path = os.path.join(
-                settings.BASE_DIR, '..', 'scrapy', 'hotel_scraper', original_image_name)
-
+                settings.BASE_DIR, '..', 'scrapy', 'hotel_scraper', 'images', original_image_name)
+            # print(f"scrapy image path: {scrapy_image_path}")
             if os.path.exists(scrapy_image_path):
                 # Clean the filename after finding the image
                 cleaned_image_name = clean_filename(original_image_name)
-
+                # print(f"cleaned image name: {cleaned_image_name}")
                 # Save the image with the cleaned name
                 with open(scrapy_image_path, 'rb') as f:
                     django_image = PropertyImage(property=property)
