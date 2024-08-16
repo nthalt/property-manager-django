@@ -4,6 +4,7 @@ This is a django property manager application which fetches hotel informations f
 For anyone interested, the Scrapy project can be found here [https://github.com/nthalt/scrapy](https://github.com/nthalt/scrapy)
 
 <!-- - [Description](#description) -->
+
 - [Features](#features)
 - [Setup and Installation](#setup-and-installation)
 - [Database Schema](#database-schema)
@@ -26,6 +27,8 @@ Django application to store property information using django admin. -->
 6. Uses Django ORM
 
 ## Setup and Installation
+
+Make sure the django project and scrapy project are under the same parent directory.
 
 1. **Clone the repository**
 
