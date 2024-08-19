@@ -28,13 +28,19 @@ Django application to store property information using django admin. -->
 
 ## Setup and Installation
 
-Make sure the django project and scrapy project are under the same parent directory.
-
 1. **Clone the repository**
 
    ```bash
    git clone https://github.com/nthalt/property-manager-django.git
    cd property-manager-django
+   ```
+
+   Make sure the django project and scrapy project are under the same parent directory. Please maintain the following directory structure:
+
+   ```bash
+   .
+   ├── scrapy/
+   └── property-manager-django/
    ```
 
 2. **Create and activate a virtual environment**:
@@ -50,7 +56,7 @@ Make sure the django project and scrapy project are under the same parent direct
    pip install -r requirements.txt
    ```
 
-4. **Create a file named .env in the project root and add your PostgreSQL database connection details. Use .env.example as a reference**
+4. **Create a file named .env in the project root and add your PostgreSQL database connection details. Use .env.example as a reference.**
 
    ```bash
    cp .env.example .env
@@ -58,10 +64,10 @@ Make sure the django project and scrapy project are under the same parent direct
 
 5. **Make sure Postgresql database engine is installed and running**
 
-6. **Create the database**
+6. **Create the database for Django to store data**
 
    ```bash
-   CREATE DATABASE your_db_name
+   CREATE DATABASE your_django_db_name
    ```
 
 <!-- 7. **Create the migration files**
