@@ -1,15 +1,22 @@
 # Property-Manager-Django
 
 This is a django property manager application which fetches hotel informations from a Scrapy project database and stores the data into Django postgres database. Django admin can apply CRUD operations on the data.
-For anyone interested, the Scrapy project can be found here [https://github.com/nthalt/scrapy](https://github.com/nthalt/scrapy)
+For anyone interested, the Scrapy project can be found here [https://github.com/nthalt/scrapy](https://github.com/nthalt/scrapy). You need to run the scrapy project once for this project to run smoothly.
 
 <!-- - [Description](#description) -->
 
+- [Requirements](#requirements)
 - [Features](#features)
 - [Setup and Installation](#setup-and-installation)
-- [Database Schema](#database-schema)
 - [Important Notes](#important-notes)
 - [Contributing](#contributing)
+
+## Requirements
+
+- Python 3 or higher
+- PostgreSQL
+- Django
+- Run the scrapy project from here [https://github.com/nthalt/scrapy](https://github.com/nthalt/scrapy)
 
 <!-- ## Description
 
@@ -76,31 +83,33 @@ Django application to store property information using django admin. -->
    python manage.py makemigrations
    ``` -->
 
-7. **Apply the migrations to the database**
+7.  **Apply the migrations to the database**
 
-   ```bash
-   python manage.py migrate
-   ```
+    ```bash
+    python manage.py migrate
+    ```
 
-8. **Migrate data from scrapy database**
+8.  **Migrate data from scrapy database**
 
-   ```bash
-   python manage.py sync_scrapy
-   ```
+    ```bash
+    python manage.py sync_scrapy
+    ```
 
-9. **Create an admin user**
+9.  **Create an admin user**
 
-   ```bash
-   python manage.py createsuperuser
-   ```
+    ```bash
+    python manage.py createsuperuser
+    ```
 
-   Set your desired `Username`,`Email address` and`Password`.
+    Set your desired `Username`,`Email address` and`Password`.
 
 10. **Start the django server**
 
-    ```bash
-    python manage.py runserver
-    ```
+        ```bash
+        python manage.py runserver
+        ```
+
+    The application can be viewed here : [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
 ### Important Notes:
 
