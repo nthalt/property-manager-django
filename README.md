@@ -1,6 +1,6 @@
 # Property-Manager-Django
 
-This is a django property manager application which fetches hotel informations from a Scrapy project database and stores the data into Django postgres database. Django admin can apply CRUD operations on the data.
+This is a django property manager application which fetches hotel informations from a Scrapy project database and stores the data into Django postgres database. Django admin can apply CRUD operations on the data. The admin panel provides the property, location, amenity, propertyImage models for visualizing and managing data.
 For anyone interested, the Scrapy project can be found here [https://github.com/nthalt/scrapy](https://github.com/nthalt/scrapy). You need to run the scrapy project once for this project to run smoothly.
 
 <!-- - [Description](#description) -->
@@ -105,14 +105,16 @@ Django application to store property information using django admin. -->
 
 10. **Start the django server**
 
-        ```bash
-        python manage.py runserver
-        ```
+    ```bash
+    python manage.py runserver
+    ```
 
     The application can be viewed here : [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
 ### Important Notes:
 
+- Please follow the directory structure mentioned in [Setup and Installation](#setup-and-installation)
+- Ensure that the database is created `CREATE DATABASE your_django_db_name`
 - Ensure that you have activated the virtual environment before running the `pip install -r requirements.txt` command. This ensures that all dependencies are installed within the virtual environment and do not affect the global Python environment.
 
 <!--
