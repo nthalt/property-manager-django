@@ -1,3 +1,4 @@
+from django.utils.html import format_html
 from django.contrib import admin
 from .models import Property, PropertyImage, Location, Amenity
 from .forms import PropertyAdminForm
@@ -6,6 +7,14 @@ from .forms import PropertyAdminForm
 class PropertyImageInline(admin.StackedInline):
     model = PropertyImage
     extra = 1
+    readonly_fields = ['image_preview']
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: 100px; height: auto;" />', obj.image.url)
+        return ""
+
+    image_preview.short_description = 'Image Preview'
 
 
 @admin.register(Property)
@@ -29,12 +38,21 @@ class AmenitiesAdmin(admin.ModelAdmin):
 @admin.register(Location)
 class LocationsAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'type', 'latitude', 'longitude')
-    list_display_links = ["id", "name", "type", "latitude", "longitude"]
-    search_fields = ["id", "name", "type", "latitude", "longitude", "type"]
+    list_display_links = ["id", 'name', 'type', 'latitude', 'longitude']
+    search_fields = ["id", 'name', 'type', 'latitude', 'longitude']
 
 
 @admin.register(PropertyImage)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'image', 'property_id')
-    list_display_links = ["id", "image", "property_id"]
-    search_fields = ["id", "property_id", "image"]
+    list_display = ('id', 'image_preview', 'property')
+    list_display_links = ['id', 'property']
+    search_fields = ['id', 'property__title', 'image']
+
+    readonly_fields = ['image_preview']
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: 100px; height: auto;" />', obj.image.url)
+        return ""
+
+    image_preview.short_description = 'Image Preview'
