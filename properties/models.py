@@ -43,7 +43,9 @@ class Location(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} ({self.type})"
+        latitude = self.latitude if self.latitude is not None else 0
+        longitude = self.longitude if self.longitude is not None else 0
+        return f"{self.name} ({self.type}) (latitude: {latitude}) (longitude: {longitude})"
 
 
 class Amenity(models.Model):
