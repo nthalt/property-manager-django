@@ -9,6 +9,11 @@ For anyone interested, the Scrapy project can be found here [https://github.com/
 - [Features](#features)
 - [Setup and Installation](#setup-and-installation)
 - [Important Notes](#important-notes)
+- [Database Schema](#database-schema)
+  - [properties_property](#properties_property)
+  - [properties_location](#properties_location)
+  - [properties_amenity](#properties_amenity)
+  - [properties_propertyimage](#properties_propertyimage)
 - [Contributing](#contributing)
 
 ## Requirements
@@ -42,7 +47,7 @@ Django application to store property information using django admin. -->
    cd property-manager-django
    ```
 
-   Make sure the django project and scrapy project are under the same parent directory. Please maintain the following directory structure:
+   Make sure the django project and scrapy project are under the same parent directory. Please maintain the following directory structure otherwise scrapy data might not be fetched properly.
 
    ```bash
    .
@@ -103,7 +108,7 @@ Django application to store property information using django admin. -->
 
     Set your desired `Username`,`Email address` and`Password`.
 
-10. **Start the django server**
+10. **Start the django development server**
 
     ```bash
     python manage.py runserver
@@ -113,9 +118,66 @@ Django application to store property information using django admin. -->
 
 ### Important Notes:
 
-- Please follow the directory structure mentioned in [Setup and Installation](#setup-and-installation)
+- Please follow the directory structure mentioned in [Setup and Installation](#setup-and-installation). Scrapy and Django project should be under the same parent directory.
 - Ensure that the database is created `CREATE DATABASE your_django_db_name`
 - Ensure that you have activated the virtual environment before running the `pip install -r requirements.txt` command. This ensures that all dependencies are installed within the virtual environment and do not affect the global Python environment.
+
+## Database Schema
+
+### Properties
+
+The database schema consists of the following main tables:
+
+#### properties_property
+
+| Column      | Type                     | Constraints                 |
+| ----------- | ------------------------ | --------------------------- |
+| property_id | integer                  | Primary Key, Auto-increment |
+| title       | character varying(255)   | Not Null, Unique            |
+| description | text                     |                             |
+| create_date | timestamp with time zone | Not Null                    |
+| update_date | timestamp with time zone | Not Null                    |
+
+#### properties_amenity
+
+| Column | Type                   | Constraints                 |
+| ------ | ---------------------- | --------------------------- |
+| id     | bigint                 | Primary Key, Auto-increment |
+| name   | character varying(255) | Not Null, Unique            |
+
+#### properties_location
+
+| Column    | Type                   | Constraints                 |
+| --------- | ---------------------- | --------------------------- |
+| id        | bigint                 | Primary Key, Auto-increment |
+| name      | character varying(255) | Not Null                    |
+| type      | character varying(100) | Not Null                    |
+| latitude  | double precision       |                             |
+| longitude | double precision       |                             |
+
+#### properties_propertyimage
+
+| Column      | Type                   | Constraints                 |
+| ----------- | ---------------------- | --------------------------- |
+| id          | bigint                 | Primary Key, Auto-increment |
+| image       | character varying(100) | Not Null                    |
+| property_id | integer                | Not Null, Foreign Key       |
+
+### Relationships
+
+- A Property can have multiple PropertyImages (One-to-Many)
+- Properties and Locations have a Many-to-Many relationship
+- Properties and Amenities have a Many-to-Many relationship
+
+### Indexing
+
+- Unique constraints are in place for property titles and amenity names
+- A composite unique index is created on location name, latitude, and longitude
+- Foreign key relationships are established between the tables
+
+### Auto-managed Fields
+
+- `create_date` and `update_date` in the `properties_property` table are automatically managed timestamp fields
 
 <!--
    a. property_id
