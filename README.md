@@ -3,8 +3,6 @@
 This is a django property manager application which fetches hotel informations from a Scrapy project database and stores the data into Django postgres database. Django admin can apply CRUD operations on the data. The admin panel provides the property, location, amenity, propertyImage models for visualizing and managing data.
 For anyone interested, the Scrapy project can be found here [https://github.com/nthalt/scrapy](https://github.com/nthalt/scrapy). You need to run the scrapy project once for this project to run smoothly.
 
-<!-- - [Description](#description) -->
-
 - [Requirements](#requirements)
 - [Features](#features)
 - [Setup and Installation](#setup-and-installation)
@@ -22,10 +20,6 @@ For anyone interested, the Scrapy project can be found here [https://github.com/
 - PostgreSQL
 - Django
 - Run the scrapy project from here [https://github.com/nthalt/scrapy](https://github.com/nthalt/scrapy)
-
-<!-- ## Description
-
-Django application to store property information using django admin. -->
 
 ## Features
 
@@ -47,7 +41,7 @@ Django application to store property information using django admin. -->
    cd property-manager-django
    ```
 
-   Make sure the django project and scrapy project are under the same parent directory. Please maintain the following directory structure otherwise scrapy data might not be fetched properly.
+   Make sure the django project and scrapy project are under the same parent directory. Please maintain the following directory structure, otherwise scrapy project data might not be fetched properly.
 
    ```bash
    .
@@ -68,7 +62,7 @@ Django application to store property information using django admin. -->
    pip install -r requirements.txt
    ```
 
-4. **Create a file named .env in the project root and add your PostgreSQL database connection details. Use .env.example as a reference.**
+4. **Create a file named .env in the project root and add your PostgreSQL database connection details. Use .env.example as a reference. Scrapy database name is provided for convenience**
 
    ```bash
    cp .env.example .env
@@ -178,22 +172,6 @@ The database schema consists of the following main tables:
 ### Auto-managed Fields
 
 - `create_date` and `update_date` in the `properties_property` table are automatically managed timestamp fields
-
-<!--
-   a. property_id
-   b. title
-   c. description
-   d. images (One to many)
-   e. location (many to many)
-      i. name
-      ii. type (country, state, city)
-      iii. latitude
-      iv. longitude
-   f. amenities (many to many)
-      i. name
-   g. create_date (datetime, auto insert)
-   h. update_date (datetime, auto update)
--->
 
 <details>
 <summary>
